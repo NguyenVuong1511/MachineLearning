@@ -22,8 +22,8 @@ source_sheet         0
 Tỷ lệ thiếu Customer ID: 22.8%
 
 -- Khoảng ngày theo từng sheet --
-                               min                 max   count
-source_sheet                                                  
+source_sheet                  min                 max   count
+                                                  
 Year 2009-2010 2009-12-01 07:45:00 2010-12-09 20:01:00  525461
 Year 2010-2011 2010-12-01 08:26:00 2011-12-09 12:50:00  541910
 
