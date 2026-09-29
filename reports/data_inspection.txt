@@ -1,0 +1,92 @@
+Số dòng: 1,067,371 | Số cột: 9
+Invoice                    str
+StockCode                  str
+Description             object
+Quantity                 int64
+InvoiceDate     datetime64[us]
+Price                  float64
+Customer ID            float64
+Country                    str
+source_sheet               str
+
+-- Giá trị thiếu --
+Invoice              0
+StockCode            0
+Description       4382
+Quantity             0
+InvoiceDate          0
+Price                0
+Customer ID     243007
+Country              0
+source_sheet         0
+Tỷ lệ thiếu Customer ID: 22.8%
+
+-- Khoảng ngày theo từng sheet --
+                               min                 max   count
+source_sheet                                                  
+Year 2009-2010 2009-12-01 07:45:00 2010-12-09 20:01:00  525461
+Year 2010-2011 2010-12-01 08:26:00 2011-12-09 12:50:00  541910
+
+Số dòng trùng lặp hoàn toàn: 34,335
+
+-- Các dòng sẽ bị loại khi làm sạch (chỉ đếm, chưa xóa) --
+Hóa đơn hủy (Invoice bắt đầu bằng 'C'): 19,494
+Quantity <= 0: 22,950
+Price <= 0: 6,207
+Thiếu Description: 4,382
+
+-- Quy mô --
+Số hóa đơn: 53,628
+Số StockCode: 5,305
+Số khách hàng: 5,942
+Số quốc gia: 43
+
+-- Invoice không toàn chữ số: ký tự đầu và số dòng --
+Invoice
+C    19494
+A        6
+
+-- StockCode không bắt đầu bằng 5 chữ số (20 mã phổ biến nhất) --
+StockCode
+POST            2122
+DOT             1446
+M               1421
+C2               282
+D                177
+S                104
+BANK CHARGES     102
+ADJUST            67
+AMAZONFEE         43
+DCGS0058          31
+gift_0001_20      29
+gift_0001_30      29
+DCGSSGIRL         25
+DCGSSBOY          23
+PADS              19
+gift_0001_10      16
+CRUK              16
+DCGS0076          15
+TEST001           15
+DCGS0003          14
+
+-- Số sản phẩm khác nhau trong mỗi hóa đơn (kích thước giỏ hàng) --
+count    40077.000000
+mean        24.865833
+std         42.179048
+min          1.000000
+25%          6.000000
+50%         15.000000
+75%         28.000000
+max       1110.000000
+
+-- 10 sản phẩm xuất hiện trong nhiều hóa đơn nhất --
+    85123A |   5365 hóa đơn | WHITE HANGING HEART T-LIGHT HOLDER
+    85099B |   3989 hóa đơn | JUMBO BAG RED RETROSPOT
+     22423 |   3918 hóa đơn | REGENCY CAKESTAND 3 TIER
+     21212 |   3118 hóa đơn | PACK OF 72 RETROSPOT CAKE CASES
+     20725 |   3056 hóa đơn | LUNCH BAG RED RETROSPOT
+     84879 |   2807 hóa đơn | ASSORTED COLOUR BIRD ORNAMENT
+     47566 |   2674 hóa đơn | PARTY BUNTING
+     21232 |   2435 hóa đơn | STRAWBERRY CERAMIC TRINKET BOX
+     22383 |   2398 hóa đơn | LUNCH BAG SUKI  DESIGN 
+     20727 |   2351 hóa đơn | LUNCH BAG  BLACK SKULL.
