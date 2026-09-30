@@ -1,9 +1,9 @@
 from pathlib import Path
 import pandas as pd
 
-XLSX = Path("data/raw/online_retail_II.xlsx")
-CSV = Path("data/raw/online_retail_II.csv")
-REPORT = Path("reports/data_inspection.txt")
+XLSX = Path("../data/raw/online_retail_II.xlsx")
+CSV = Path("../data/raw/online_retail_II.csv")
+REPORT = Path("../reports/data_inspection.txt")
 
 
 def load_raw() -> pd.DataFrame:

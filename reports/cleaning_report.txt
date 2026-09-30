@@ -1,0 +1,12 @@
+Số dòng ban đầu: 1,067,371
+Bước 1 - bỏ trùng lặp hoàn toàn: -34,335 dòng
+Bước 2 - bỏ hóa đơn hủy (C...): -19,104 dòng
+Bước 3 - bỏ hóa đơn điều chỉnh (A...): -6 dòng
+Bước 4 - bỏ Quantity <= 0: -3,393 dòng
+Bước 5 - bỏ Price <= 0: -2,621 dòng
+Bước 6 - bỏ thiếu Description: -0 dòng
+Bước 7 - bỏ mã dịch vụ (POST/TEST001/...): -4,469 dòng
+
+Số dòng còn lại: 1,003,443 (94.0% so với ban đầu)
+Số hóa đơn còn lại: 39,520
+Số StockCode còn lại: 4,906
