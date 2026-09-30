@@ -10,7 +10,7 @@
 
 \- Giấy phép: CC BY 4.0 (được dùng và chỉnh sửa, phải ghi nguồn)
 
-\- Ngày tải: <điền ngày bạn tải>
+\- Ngày tải: 29/09/2026
 
 \- Tệp sử dụng: online\_retail\_II.xlsx, gồm 2 sheet
 
@@ -42,11 +42,11 @@
 
 &#x20; 1. Tải tệp từ link trên, đặt vào `data/raw/`
 
-&#x20; 2. Chạy `python src/inspect\_raw.py` để kiểm tra và cache thành CSV
+&#x20; 2. Chạy `python src/inspect_raw.py` để kiểm tra và cache thành CSV
 
 &#x20; 3. (Thứ Ba) chạy `python src/data.py` để làm sạch theo đúng thứ tự
 
-&#x20;    trong `docs/project\_brief.md` mục 6
+&#x20;    trong `docs/project_brief.md` mục 6
 
 \- Lưu ý: dữ liệu thô không đưa vào Git (đã liệt kê trong .gitignore)
 
