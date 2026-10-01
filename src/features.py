@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 SPLIT_CSV = Path("data/processed/split.csv")
 
 
-def build_item_matrix(train_df: pd.DataFrame, group_col: str, min_freq: int):
+def build_item_matrix(train_df: pd.DataFrame, group_col: str, min_freq: int = 60):
     """
     Xây ma trận nhị phân sản phẩm x group_col.
     group_col = "Invoice" (vector item-invoice) hoặc "Customer ID" (vector item-customer).
