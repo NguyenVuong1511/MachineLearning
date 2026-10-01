@@ -16,7 +16,7 @@
 
 &#x20; "Year 2009-2010" và "Year 2010-2011"
 
-\- SHA-256: <dán checksum đã tính ở Bước 2>
+\- SHA-256: bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980
 
 \- Số dòng thô: 1.067.371 | Số cột thô: 9
 
@@ -32,7 +32,7 @@
 
 &#x20; POST/DOT/M/C2/D/S/BANK CHARGES/ADJUST/AMAZONFEE/CRUK/TEST001):
 
-&#x20; còn lại 53.628 hóa đơn, 5.305 mã sản phẩm, 5.942 khách hàng,
+&#x20; còn lại 39.520 hóa đơn, 4.906 mã sản phẩm, 5.942 khách hàng,
 
 &#x20; 43 quốc gia
 
