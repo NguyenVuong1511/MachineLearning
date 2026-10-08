@@ -1,0 +1,51 @@
+{
+  "hit_rate": 0.314,
+  "hit_rate_baseline": 0.07,
+  "coverage": 0.844,
+  "k": 20,
+  "min_freq": 60,
+  "num_evaluated": 5073,
+  "num_total_pairs": 5429,
+  "top_popular": [
+    {
+      "stock_code": "85123A",
+      "invoice_count": 3809
+    },
+    {
+      "stock_code": "85099B",
+      "invoice_count": 2782
+    },
+    {
+      "stock_code": "22423",
+      "invoice_count": 2730
+    },
+    {
+      "stock_code": "21212",
+      "invoice_count": 2201
+    },
+    {
+      "stock_code": "20725",
+      "invoice_count": 2130
+    },
+    {
+      "stock_code": "84879",
+      "invoice_count": 1977
+    },
+    {
+      "stock_code": "47566",
+      "invoice_count": 1824
+    },
+    {
+      "stock_code": "22383",
+      "invoice_count": 1670
+    },
+    {
+      "stock_code": "22197",
+      "invoice_count": 1654
+    },
+    {
+      "stock_code": "21232",
+      "invoice_count": 1644
+    }
+  ]
+}

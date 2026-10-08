@@ -39,3 +39,28 @@ print(f"Coverage          = {cov:.3f}")
 import joblib
 joblib.dump({"sim_matrix": sim, "item_vocab": vocab}, "models/cosine_model.joblib")
 print("Đã lưu model vào models/cosine_model.joblib")
+
+# Thêm vào cuối src/final_test.py
+import json
+from pathlib import Path
+
+top10 = (
+    train.groupby("StockCode")["Invoice"].nunique()
+    .sort_values(ascending=False).head(10)
+)
+top10_info = [{"stock_code": c, "invoice_count": int(n)} for c, n in top10.items()]
+
+Path("reports").mkdir(exist_ok=True)
+Path("reports/final_test_result.json").write_text(
+    json.dumps({
+        "hit_rate": round(hr, 3),
+        "hit_rate_baseline": round(hr_base, 3),
+        "coverage": round(cov, 3),
+        "k": K,
+        "min_freq": MIN_FREQ,
+        "num_evaluated": n_eval,
+        "num_total_pairs": len(pairs),
+        "top_popular": top10_info,
+    }, ensure_ascii=False, indent=2)
+)
+print("Đã lưu reports/final_test_result.json")
