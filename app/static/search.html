@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tìm gợi ý sản phẩm</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+  <span class="brand">🛍️ SP Gợi Ý</span>
+  <a href="index.html">Giới thiệu</a>
+  <a href="search.html" class="active">Tìm gợi ý</a>
+  <a href="dashboard.html">Model card</a>
+</nav>
+<div class="container">
+  <h1>Tìm sản phẩm gợi ý</h1>
+  <p class="subtitle">Gõ tên sản phẩm (ví dụ "lunch bag", "heart"), chọn từ danh sách, xem gợi ý mua kèm.</p>
+
+  <div class="card">
+    <label for="query">Tên hoặc mã sản phẩm</label>
+    <div class="search-box">
+      <input type="text" id="query" placeholder="Gõ ít nhất 2 ký tự..." autocomplete="off">
+      <ul class="suggestions" id="suggestions"></ul>
+    </div>
+    <p class="hint">Tìm theo tên tiếng Anh gốc trong dữ liệu (không dấu).</p>
+  </div>
+
+  <div class="card" id="selectedCard" style="display:none">
+    <strong>Đã chọn:</strong> <span id="selectedName"></span>
+    <span class="code" id="selectedCode"></span>
+    <div style="margin-top:12px">
+      <label for="k">Số lượng gợi ý (1–50)</label>
+      <input type="number" id="k" value="10" min="1" max="50">
+    </div>
+  </div>
+
+  <div id="resultArea"></div>
+</div>
+
+<script src="api.js"></script>
+<script>
+  const queryInput = document.getElementById("query");
+  const suggestionsBox = document.getElementById("suggestions");
+  const selectedCard = document.getElementById("selectedCard");
+  const selectedName = document.getElementById("selectedName");
+  const selectedCode = document.getElementById("selectedCode");
+  const kInput = document.getElementById("k");
+  const resultArea = document.getElementById("resultArea");
+  let currentCode = null;
+
+  const onType = debounce(async (q) => {
+    if (q.length < 2) { suggestionsBox.innerHTML = ""; return; }
+    try {
+      const data = await API.searchProducts(q, 10);
+      suggestionsBox.innerHTML = data.results.length
+        ? data.results.map(it =>
+            `<li data-code="${it.stock_code}" data-name="${it.description}">
+               ${it.description} <span class="code">(${it.stock_code})</span>
+             </li>`).join("")
+        : `<li class="code">Không tìm thấy sản phẩm phù hợp</li>`;
+    } catch (e) {
+      suggestionsBox.innerHTML = `<li class="code">Lỗi tìm kiếm: ${e.message}</li>`;
+    }
+  }, 250);
+
+  queryInput.addEventListener("input", (e) => onType(e.target.value.trim()));
+
+  suggestionsBox.addEventListener("click", (e) => {
+    const li = e.target.closest("li[data-code]");
+    if (!li) return;
+    selectProduct(li.dataset.code, li.dataset.name);
+  });
+
+  function selectProduct(code, name) {
+    currentCode = code;
+    selectedCard.style.display = "block";
+    selectedName.textContent = name;
+    selectedCode.textContent = `(${code})`;
+    suggestionsBox.innerHTML = "";
+    queryInput.value = "";
+    loadRecommendations();
+  }
+
+  kInput.addEventListener("change", () => { if (currentCode) loadRecommendations(); });
+
+  async function loadRecommendations() {
+    const k = Number(kInput.value);
+    if (k < 1 || k > 50) {
+      resultArea.innerHTML = `<div class="state-box error">Số lượng gợi ý phải trong khoảng 1–50</div>`;
+      return;
+    }
+    resultArea.innerHTML = `<div class="state-box">Đang tải gợi ý...</div>`;
+    try {
+      const data = await API.similarItems(currentCode, k);
+      if (!data.recommendations.length) {
+        resultArea.innerHTML = `<div class="state-box">Không có gợi ý nào cho sản phẩm này.</div>`;
+        return;
+      }
+      resultArea.innerHTML = `
+        <h3>Gợi ý (${data.recommendations.length} sản phẩm)</h3>
+        <ul class="item-list">
+          ${data.recommendations.map(it => `
+            <li>
+              <div><span class="name">${it.description || "(không có tên)"}</span>
+                   <span class="code">${it.stock_code}</span></div>
+              <span class="score">${it.score}</span>
+            </li>`).join("")}
+        </ul>`;
+    } catch (e) {
+      resultArea.innerHTML = `<div class="state-box error">${e.message}</div>`;
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model Card</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+  <span class="brand">🛍️ SP Gợi Ý</span>
+  <a href="index.html">Giới thiệu</a>
+  <a href="search.html">Tìm gợi ý</a>
+  <a href="dashboard.html" class="active">Model card</a>
+</nav>
+<div class="container">
+  <h1>Model Card</h1>
+  <p class="subtitle">Cosine similarity trên vector item-invoice nhị phân (min_freq=60)</p>
+
+  <div id="statsArea"><div class="state-box">Đang tải số liệu...</div></div>
+
+  <div class="card">
+    <h3>Giới hạn</h3>
+    <ul>
+      <li>Chia tập ngẫu nhiên theo hóa đơn, chưa mô phỏng trình tự thời gian thật.</li>
+      <li>Dữ liệu có nhiều đơn mua số lượng lớn, có thể là khách bán sỉ.</li>
+      <li>Sản phẩm xuất hiện dưới 60 hóa đơn trong tập huấn luyện không nằm trong phạm vi gợi ý.</li>
+      <li>Không sử dụng Customer ID để cá nhân hóa hay hiển thị.</li>
+    </ul>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+  (async () => {
+    const area = document.getElementById("statsArea");
+    try {
+      const s = await API.modelStats();
+      const lift = (s.hit_rate / s.hit_rate_baseline).toFixed(1);
+      area.innerHTML = `
+        <div class="stat-grid">
+          <div class="card"><div class="num">${(s.hit_rate * 100).toFixed(1)}%</div><div class="label">Hit-rate@${s.k} (cosine)</div></div>
+          <div class="card"><div class="num">${(s.hit_rate_baseline * 100).toFixed(1)}%</div><div class="label">Hit-rate baseline</div></div>
+          <div class="card"><div class="num">${(s.coverage * 100).toFixed(1)}%</div><div class="label">Coverage</div></div>
+          <div class="card"><div class="num">${lift}×</div><div class="label">So với baseline</div></div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>So sánh Hit-rate</h3>
+          <div class="bar-row">
+            <span class="label">Cosine</span>
+            <div class="bar-track"><div class="bar-fill" style="width:${s.hit_rate * 100}%"></div></div>
+            <span class="bar-value">${(s.hit_rate * 100).toFixed(1)}%</span>
+          </div>
+          <div class="bar-row">
+            <span class="label">Baseline</span>
+            <div class="bar-track"><div class="bar-fill" style="width:${s.hit_rate_baseline * 100}%; background:#94a3b8"></div></div>
+            <span class="bar-value">${(s.hit_rate_baseline * 100).toFixed(1)}%</span>
+          </div>
+          <p class="hint">Đánh giá trên ${s.num_evaluated}/${s.num_total_pairs} cặp leave-one-out, tập test, chạy đúng 1 lần.</p>
+        </div>
+        <div class="card">
+          <h3>Top 10 sản phẩm phổ biến nhất (train)</h3>
+          <ul class="item-list">
+            ${s.top_popular.map(it => `
+              <li><div><span class="name">${it.description || it.stock_code}</span>
+                       <span class="code">${it.stock_code}</span></div>
+                  <span class="score">${it.invoice_count} hóa đơn</span></li>`).join("")}
+          </ul>
+        </div>`;
+    } catch (e) {
+      area.innerHTML = `<div class="state-box error">Không tải được số liệu: ${e.message}</div>`;
+    }
+  })();
+</script>
+</body>
+</html>

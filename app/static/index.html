@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gợi ý sản phẩm mua kèm</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+  <span class="brand">🛍️ SP Gợi Ý</span>
+  <a href="index.html" class="active">Giới thiệu</a>
+  <a href="search.html">Tìm gợi ý</a>
+  <a href="dashboard.html">Model card</a>
+</nav>
+<div class="container">
+  <h1>Hệ thống gợi ý sản phẩm mua kèm</h1>
+  <p class="subtitle">Đồ án Học máy cơ bản — item-item recommendation trên dữ liệu Online Retail II</p>
+
+  <div class="card">
+    <h3>Hệ thống làm gì?</h3>
+    <p>Với một sản phẩm khách đang xem hoặc đã có trong giỏ, hệ thống gợi ý
+    Top-N sản phẩm hay được mua cùng, dựa trên độ tương đồng cosine giữa
+    các vector sản phẩm × hóa đơn (nhị phân).</p>
+  </div>
+
+  <div class="card">
+    <h3>Phạm vi và giới hạn</h3>
+    <ul>
+      <li>Dữ liệu: 39.520 hóa đơn, 01/12/2009–09/12/2011, cửa hàng quà tặng tại Anh.</li>
+      <li>Không dùng thông tin định danh khách hàng (Customer ID bị ẩn).</li>
+      <li>Chỉ gợi ý trong phạm vi <span class="badge muted">các sản phẩm đủ dữ liệu</span>
+        (sản phẩm quá hiếm bị loại để đảm bảo độ tin cậy).</li>
+      <li>Kết quả mang tính minh họa học thuật, không phải hệ thống thương mại thật.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <a href="search.html">→ Vào thử tìm sản phẩm và xem gợi ý</a><br>
+    <a href="dashboard.html">→ Xem số liệu đánh giá mô hình</a>
+  </div>
+</div>
+</body>
+</html>
