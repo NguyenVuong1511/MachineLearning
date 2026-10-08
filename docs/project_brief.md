@@ -113,3 +113,20 @@ nhiều lần rồi chọn kết quả đẹp nhất.
   sẽ có ít dữ liệu hơn kiểu gợi ý theo hóa đơn.
 - Không dùng mã khách hàng để hiển thị hay ghi log, để bảo vệ thông tin
   khách.
+## 12. Cấu hình cuối cùng (đóng băng sau khi xong 4 thí nghiệm)
+- Cách biểu diễn: **item-invoice**. Thí nghiệm 1 cho thấy item-customer
+  nhỉnh hơn ở K=10,20 (Hit-rate 0,262 và 0,332 so với 0,254 và 0,312),
+  nhưng được đo trên từ vựng nhỏ hơn 24% (1.841 so với 2.409 sản phẩm)
+  và ít cặp đánh giá hơn (4.805 so với 5.115), do 22,8% dòng thiếu
+  Customer ID. Vì phép đo không công bằng hoàn toàn và item-invoice dùng
+  được cho cả khách không đăng nhập, chọn item-invoice làm cấu hình chính.
+- min_freq = 60
+- K = 20 làm kết quả chính; K=5, K=10 trình bày kèm trong báo cáo để so
+  sánh trade-off.
+- Mã quà tặng/đóng gói (PADS, gift_0001_10/20/30, DCGSSGIRL, DCGSSBOY):
+  **LOẠI**. Thí nghiệm 4 cho thấy Hit-rate gần như không đổi khi loại
+  (giảm ~0,006 ở K=20, từ 0,312 xuống 0,306) — quyết định loại dựa trên
+  lý do sản phẩm thực tế (không nên gợi ý thẻ quà tặng/túi đóng gói cho
+  khách) hơn là dựa trên chênh lệch Hit-rate.
+- Ngày đóng băng: 01/10/2026. Sau mốc này không đổi lại các
+  giá trị trên để chạy test đẹp hơn.
