@@ -3,29 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Model Card</title>
+<title>Model Card | Báo Cáo</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar">
-  <span class="brand">🛍️ SP Gợi Ý</span>
+  <span class="brand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 6px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    RecSys AI
+  </span>
   <a href="index.html">Giới thiệu</a>
   <a href="search.html">Tìm gợi ý</a>
   <a href="dashboard.html" class="active">Model card</a>
 </nav>
+
 <div class="container">
   <h1>Model Card</h1>
-  <p class="subtitle">Cosine similarity trên vector item-invoice nhị phân (min_freq=60)</p>
+  <p class="subtitle">Báo cáo đánh giá mô hình phân tích hành vi mua sắm bằng Cosine Similarity (min_freq=60).</p>
 
-  <div id="statsArea"><div class="state-box">Đang tải số liệu...</div></div>
+  <div id="statsArea"><div class="state-box">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: pulseGlow 2s infinite; color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    <br><br>Đang tải số liệu mô hình...
+  </div></div>
 
-  <div class="card">
-    <h3>Giới hạn</h3>
-    <ul>
-      <li>Chia tập ngẫu nhiên theo hóa đơn, chưa mô phỏng trình tự thời gian thật.</li>
-      <li>Dữ liệu có nhiều đơn mua số lượng lớn, có thể là khách bán sỉ.</li>
-      <li>Sản phẩm xuất hiện dưới 60 hóa đơn trong tập huấn luyện không nằm trong phạm vi gợi ý.</li>
-      <li>Không sử dụng Customer ID để cá nhân hóa hay hiển thị.</li>
+  <div class="card" style="margin-top: 32px;">
+    <h3>Giới hạn Mô hình</h3>
+    <ul class="styled-list">
+      <li><strong>Cách chia tập dữ liệu:</strong> Chia ngẫu nhiên theo hóa đơn, hiện tại chưa mô phỏng trình tự thời gian thật.</li>
+      <li><strong>Khách sỉ:</strong> Dữ liệu chứa nhiều đơn mua với số lượng cực lớn, có thể làm nhiễu mô hình gợi ý cho khách mua lẻ.</li>
+      <li><strong>Ngưỡng loại bỏ:</strong> Các sản phẩm xuất hiện dưới 60 hóa đơn trong tập huấn luyện (train set) sẽ không nằm trong phạm vi gợi ý.</li>
+      <li><strong>Không cá nhân hóa:</strong> Không lưu trữ hoặc sử dụng Customer ID.</li>
     </ul>
   </div>
 </div>
@@ -44,31 +51,56 @@
           <div class="card"><div class="num">${(s.coverage * 100).toFixed(1)}%</div><div class="label">Coverage</div></div>
           <div class="card"><div class="num">${lift}×</div><div class="label">So với baseline</div></div>
         </div>
-        <div class="card" style="margin-top:14px">
-          <h3>So sánh Hit-rate</h3>
-          <div class="bar-row">
-            <span class="label">Cosine</span>
-            <div class="bar-track"><div class="bar-fill" style="width:${s.hit_rate * 100}%"></div></div>
+        
+        <div class="card" style="margin-top: 32px;">
+          <h3>Đánh giá Hiệu năng (So sánh Hit-rate)</h3>
+          <div class="bar-row" style="margin-top: 24px;">
+            <span class="label">Mô hình Cosine</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 0%; transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)" id="barCosine"></div>
+            </div>
             <span class="bar-value">${(s.hit_rate * 100).toFixed(1)}%</span>
           </div>
           <div class="bar-row">
-            <span class="label">Baseline</span>
-            <div class="bar-track"><div class="bar-fill" style="width:${s.hit_rate_baseline * 100}%; background:#94a3b8"></div></div>
+            <span class="label">Baseline (Phổ biến)</span>
+            <div class="bar-track">
+              <div class="bar-fill" style="width: 0%; background: linear-gradient(90deg, #f59e0b, #fbbf24); box-shadow: none; transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);" id="barBaseline"></div>
+            </div>
             <span class="bar-value">${(s.hit_rate_baseline * 100).toFixed(1)}%</span>
           </div>
-          <p class="hint">Đánh giá trên ${s.num_evaluated}/${s.num_total_pairs} cặp leave-one-out, tập test, chạy đúng 1 lần.</p>
+          <p class="hint" style="margin-top: 20px;">Đánh giá dựa trên ${s.num_evaluated}/${s.num_total_pairs} cặp leave-one-out trên tập test.</p>
         </div>
+        
         <div class="card">
-          <h3>Top 10 sản phẩm phổ biến nhất (train)</h3>
+          <h3>Top 10 Sản phẩm Phổ biến nhất (Train Set)</h3>
           <ul class="item-list">
-            ${s.top_popular.map(it => `
-              <li><div><span class="name">${it.description || it.stock_code}</span>
-                       <span class="code">${it.stock_code}</span></div>
-                  <span class="score">${it.invoice_count} hóa đơn</span></li>`).join("")}
+            ${s.top_popular.map((it, idx) => `
+              <li>
+                <div>
+                  <span class="name" style="display: flex; align-items: center; gap: 12px;">
+                    <span style="display:inline-block; width: 28px; height: 28px; text-align: center; line-height: 28px; background: #f1f5f9; border-radius: 50%; font-size: 13px; font-weight: 700; color: var(--primary);">${idx + 1}</span>
+                    ${it.description || it.stock_code}
+                  </span>
+                  <span class="code" style="margin-top:6px; margin-left: 40px; display:inline-block;">${it.stock_code}</span>
+                </div>
+                <span class="score">${it.invoice_count.toLocaleString()} hóa đơn</span>
+              </li>`).join("")}
           </ul>
         </div>`;
+        
+        // Trigger animations
+        setTimeout(() => {
+          const bC = document.getElementById('barCosine');
+          const bB = document.getElementById('barBaseline');
+          if (bC) bC.style.width = `${s.hit_rate * 100}%`;
+          if (bB) bB.style.width = `${s.hit_rate_baseline * 100}%`;
+        }, 100);
+        
     } catch (e) {
-      area.innerHTML = `<div class="state-box error">Không tải được số liệu: ${e.message}</div>`;
+      area.innerHTML = `<div class="state-box error">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><br>
+        Không tải được số liệu: ${e.message}
+      </div>`;
     }
   })();
 </script>

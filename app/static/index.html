@@ -3,41 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gợi ý sản phẩm mua kèm</title>
+<title>Hệ thống Gợi ý Sản phẩm Mua kèm</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <nav class="navbar">
-  <span class="brand">🛍️ SP Gợi Ý</span>
+  <span class="brand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-right: 6px;"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+    RecSys AI
+  </span>
   <a href="index.html" class="active">Giới thiệu</a>
   <a href="search.html">Tìm gợi ý</a>
   <a href="dashboard.html">Model card</a>
 </nav>
+
 <div class="container">
-  <h1>Hệ thống gợi ý sản phẩm mua kèm</h1>
-  <p class="subtitle">Đồ án Học máy cơ bản — item-item recommendation trên dữ liệu Online Retail II</p>
+  <h1>Hệ thống Gợi ý Sản phẩm Mua kèm</h1>
+  <p class="subtitle">Đồ án Học máy cơ bản — Hệ thống Item-Item Recommendation dựa trên tập dữ liệu Online Retail II.</p>
 
   <div class="card">
-    <h3>Hệ thống làm gì?</h3>
-    <p>Với một sản phẩm khách đang xem hoặc đã có trong giỏ, hệ thống gợi ý
-    Top-N sản phẩm hay được mua cùng, dựa trên độ tương đồng cosine giữa
-    các vector sản phẩm × hóa đơn (nhị phân).</p>
+    <h3>Về Hệ thống</h3>
+    <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
+      Khi một khách hàng đang xem hoặc đã thêm một sản phẩm vào giỏ, hệ thống sẽ đề xuất danh sách các <strong>sản phẩm thường xuyên được mua cùng</strong>. Thuật toán cốt lõi sử dụng khoảng cách tương đồng <strong style="color: var(--primary);">Cosine Similarity</strong> giữa các vector nhị phân đại diện cho các hóa đơn mua hàng.
+    </p>
   </div>
 
   <div class="card">
-    <h3>Phạm vi và giới hạn</h3>
-    <ul>
-      <li>Dữ liệu: 39.520 hóa đơn, 01/12/2009–09/12/2011, cửa hàng quà tặng tại Anh.</li>
-      <li>Không dùng thông tin định danh khách hàng (Customer ID bị ẩn).</li>
-      <li>Chỉ gợi ý trong phạm vi <span class="badge muted">các sản phẩm đủ dữ liệu</span>
-        (sản phẩm quá hiếm bị loại để đảm bảo độ tin cậy).</li>
-      <li>Kết quả mang tính minh họa học thuật, không phải hệ thống thương mại thật.</li>
+    <h3>Phạm vi và Giới hạn</h3>
+    <ul class="styled-list">
+      <li><strong>Nguồn Dữ liệu:</strong> 39.520 hóa đơn (01/12/2009 – 09/12/2011) từ một cửa hàng quà tặng bán lẻ tại Vương quốc Anh.</li>
+      <li><strong>Quyền riêng tư:</strong> Không sử dụng Customer ID để cá nhân hóa, hệ thống hoàn toàn dựa trên hành vi tổng hợp từ các hóa đơn.</li>
+      <li><strong>Ngưỡng Tin cậy:</strong> Chỉ gợi ý <span class="badge muted">các sản phẩm đủ dữ liệu</span>. Các sản phẩm xuất hiện quá ít (hiếm) đã được loại bỏ để tăng độ chính xác và tin cậy của thuật toán.</li>
+      <li><strong>Mục đích:</strong> Kết quả minh họa học thuật cho thuật toán <em>Collaborative Filtering</em>, không phải hệ thống thương mại thực tế.</li>
     </ul>
   </div>
 
-  <div class="card">
-    <a href="search.html">→ Vào thử tìm sản phẩm và xem gợi ý</a><br>
-    <a href="dashboard.html">→ Xem số liệu đánh giá mô hình</a>
+  <div style="display: flex; flex-wrap: wrap; margin-top: 40px;">
+    <a href="search.html" class="action-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      Thử tìm sản phẩm
+    </a>
+    <a href="dashboard.html" class="action-link secondary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      Xem Dashboard Mô hình
+    </a>
   </div>
 </div>
 </body>
