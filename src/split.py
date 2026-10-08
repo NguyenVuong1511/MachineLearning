@@ -1,4 +1,8 @@
 """src/split.py — chia train/val/test theo hóa đơn (70/15/15, seed=42)."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from pathlib import Path
 import pandas as pd
 import numpy as np

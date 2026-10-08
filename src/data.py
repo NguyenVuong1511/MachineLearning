@@ -1,4 +1,8 @@
 """src/data.py — làm sạch dữ liệu Online Retail II theo đúng docs/project_brief.md mục 5."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from pathlib import Path
 import pandas as pd
 

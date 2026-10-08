@@ -1,9 +1,13 @@
 """src/error_analysis.py — Xem hệ thống đoán sai ở đâu, để viết phần phân tích lỗi."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import numpy as np
 import pandas as pd
 
-from features import build_item_matrix, compute_cosine, recommend_topn
-from evaluate import leave_one_out_pairs
+from src.features import build_item_matrix, compute_cosine, recommend_topn
+from src.evaluate import leave_one_out_pairs
 
 SEED = 42
 MIN_FREQ = 60
@@ -64,3 +68,22 @@ miss = result[~result["hit"]]
 print(miss["hidden"].value_counts().head(10))
 
 result.to_csv("reports/error_analysis.csv", index=False)
+
+import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+result.groupby("freq_bucket", observed=True)["hit"].mean().plot(
+    kind="bar", ax=axes[0], color="#4f46e5")
+axes[0].set_title("Hit-rate theo độ hiếm sản phẩm")
+axes[0].set_ylabel("Hit-rate")
+axes[0].tick_params(axis="x", rotation=30)
+
+result.groupby("basket_bucket", observed=True)["hit"].mean().plot(
+    kind="bar", ax=axes[1], color="#4f46e5")
+axes[1].set_title("Hit-rate theo kích thước giỏ hàng")
+axes[1].set_ylabel("Hit-rate")
+
+plt.tight_layout()
+plt.savefig("reports/figures/error_analysis.png", dpi=150)
+print("Đã lưu reports/figures/error_analysis.png")

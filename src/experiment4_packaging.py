@@ -1,9 +1,13 @@
 """src/experiment4_packaging.py — Ảnh hưởng của mã quà tặng/đóng gói lên kết quả gợi ý."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import numpy as np
 import pandas as pd
 
-from features import build_item_matrix, compute_cosine
-from evaluate import leave_one_out_pairs, hit_rate_at_k, coverage_at_k
+from src.features import build_item_matrix, compute_cosine
+from src.evaluate import leave_one_out_pairs, hit_rate_at_k, coverage_at_k
 
 SEED = 42
 MIN_FREQ = 60

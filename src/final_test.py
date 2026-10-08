@@ -1,11 +1,15 @@
 """src/final_test.py — Đánh giá model đã train trên tập test. CHẠY ĐÚNG MỘT LẦN."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import json
 from pathlib import Path
 import numpy as np
 import pandas as pd
 import joblib
 
-from evaluate import leave_one_out_pairs, hit_rate_at_k, coverage_at_k, hit_rate_baseline
+from src.evaluate import leave_one_out_pairs, hit_rate_at_k, coverage_at_k, hit_rate_baseline
 
 SEED = 42
 K = 20

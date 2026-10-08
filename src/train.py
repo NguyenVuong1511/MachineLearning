@@ -1,7 +1,11 @@
 """src/train.py — Train model cuối cùng với cấu hình đã đóng băng, lưu lại để serving và evaluate dùng."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import pandas as pd
 import joblib
-from features import build_item_matrix, compute_cosine
+from src.features import build_item_matrix, compute_cosine
 
 MIN_FREQ = 60
 GROUP_COL = "Invoice"

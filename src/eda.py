@@ -1,4 +1,8 @@
 """src/eda.py — khám phá dữ liệu trên tập train (chỉ dùng train, không đụng val/test)."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt

@@ -1,10 +1,14 @@
 """src/evaluate.py — đo Hit-rate@K và coverage trên validation."""
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from features import build_item_matrix, compute_cosine, recommend_topn
-from baseline import get_baseline_topk
+from src.features import build_item_matrix, compute_cosine, recommend_topn
+from src.baseline import get_baseline_topk
 
 SEED = 42
 
