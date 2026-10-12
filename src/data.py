@@ -80,8 +80,7 @@ def main():
     df = load_raw()
     df = clean(df)
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
-    df.to_
-    csv(OUT_CSV, index=False)
+    df.to_csv(OUT_CSV, index=False)
 
 
 if __name__ == "__main__":
