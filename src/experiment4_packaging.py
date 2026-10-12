@@ -20,7 +20,6 @@ df = pd.read_csv("data/processed/split.csv", dtype={"Invoice": str, "StockCode":
 train_full = df[df["split"] == "train"]
 val_full = df[df["split"] == "val"]
 
-rng = np.random.default_rng(SEED)
 
 print("So sánh GIỮ vs LOẠI mã quà tặng/đóng gói (min_freq=60)\n")
 for keep, label in [(True, "Giữ mã quà tặng"), (False, "Loại mã quà tặng")]:
@@ -32,6 +31,7 @@ for keep, label in [(True, "Giữ mã quà tặng"), (False, "Loại mã quà t�
 
     mat, vocab = build_item_matrix(train, "Invoice", min_freq=MIN_FREQ)
     sim = compute_cosine(mat)
+    rng = np.random.default_rng(SEED)
     pairs = leave_one_out_pairs(val, rng)   # tạo lại pairs vì val đã đổi (loại mã quà tặng)
 
     for k in [5, 10, 20]:
